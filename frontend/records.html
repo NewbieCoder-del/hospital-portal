@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medical Records | CareConnect Bangalore</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="site-header">
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="doctor-search.html">Find Doctor</a>
+      <a href="hospitals.html">Hospitals</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="records.html" aria-current="page">Records</a>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="hero card">
+      <div class="hero-content">
+        <p class="section-label">Medical records</p>
+        <h1>Upload and manage your medical files</h1>
+        <p class="hero-subtitle">Keep prescriptions, lab reports, and scans in one easy place.</p>
+      </div>
+    </section>
+
+    <section class="records-layout">
+      <article class="dashboard-panel card" aria-labelledby="upload-title">
+        <div class="section-heading">
+          <p class="section-label">Upload records</p>
+          <h2 id="upload-title">Add new files</h2>
+        </div>
+
+        <div class="upload-grid">
+          <section class="upload-card">
+            <h3>Upload Prescription</h3>
+            <p>Select a prescription file from your device.</p>
+            <label class="upload-label" for="upload-prescription">Choose Prescription</label>
+            <input id="upload-prescription" class="record-input" type="file" data-record-type="Prescription" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+          </section>
+
+          <section class="upload-card">
+            <h3>Upload Lab Report</h3>
+            <p>Select a lab report file from your device.</p>
+            <label class="upload-label" for="upload-lab-report">Choose Lab Report</label>
+            <input id="upload-lab-report" class="record-input" type="file" data-record-type="Lab Report" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+          </section>
+
+          <section class="upload-card">
+            <h3>Upload Scan</h3>
+            <p>Select a scan file from your device.</p>
+            <label class="upload-label" for="upload-scan">Choose Scan</label>
+            <input id="upload-scan" class="record-input" type="file" data-record-type="Scan" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+          </section>
+        </div>
+      </article>
+
+      <article class="dashboard-panel card" aria-labelledby="records-title">
+        <div class="section-heading">
+          <p class="section-label">Uploaded files</p>
+          <h2 id="records-title">Your record cards</h2>
+        </div>
+
+        <div class="records-grid" id="records-grid">
+          <article class="record-card">
+            <h3>Prescription</h3>
+            <p class="doctor-meta">blood-pressure-prescription.pdf</p>
+            <a class="primary-button" href="data:text/plain;charset=utf-8,Blood%20pressure%20prescription%20sample" download="blood-pressure-prescription.txt">Download</a>
+          </article>
+
+          <article class="record-card">
+            <h3>Lab Report</h3>
+            <p class="doctor-meta">annual-blood-test-report.pdf</p>
+            <a class="primary-button" href="data:text/plain;charset=utf-8,Annual%20blood%20test%20report%20sample" download="annual-blood-test-report.txt">Download</a>
+          </article>
+        </div>
+
+        <p class="help-text" id="records-empty-state" hidden>No records uploaded yet. Choose a file above to add a new card.</p>
+      </article>
+    </section>
+  </main>
+
+    <footer class="site-footer">
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="tel:+918045678900">Contact</a>
+        <a href="help.html">Help</a>
+        <a href="privacy.html">Privacy</a>
+      </nav>
+    </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

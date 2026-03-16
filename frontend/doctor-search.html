@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find Doctors | CareConnect Bangalore</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="site-header">
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="doctor-search.html" aria-current="page">Find Doctor</a>
+      <a href="hospitals.html">Hospitals</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="records.html">Records</a>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="hero card">
+      <div class="hero-content">
+        <p class="section-label">Doctor search</p>
+        <h1>Find doctors across Bangalore hospitals</h1>
+        <p class="hero-subtitle">Search by doctor name, specialty, or hospital and book appointments more easily.</p>
+      </div>
+    </section>
+
+    <section class="search-section card" aria-labelledby="doctor-search-title">
+      <div class="section-heading">
+        <p class="section-label">Search and filter</p>
+        <h2 id="doctor-search-title">Browse doctors by specialty</h2>
+      </div>
+
+      <form class="search-panel" id="doctor-search-form">
+        <p class="step-note">Step 1 of 3: Choose a doctor. Step 2 and Step 3 happen automatically after selecting a time and confirming.</p>
+        <div class="form-grid">
+          <div class="form-group full-width">
+            <label for="doctor-search-input">Search doctors or hospitals</label>
+            <input
+              id="doctor-search-input"
+              name="doctor-search"
+              type="search"
+              placeholder="Example: Ravi Kumar, Dermatologist, or Apollo Hospital"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="specialty-filter">Filter by specialty</label>
+            <select id="specialty-filter" name="specialty">
+              <option value="all">All specialties</option>
+              <option value="cardiologist">Cardiologist</option>
+              <option value="dermatologist">Dermatologist</option>
+              <option value="general physician">General Physician</option>
+              <option value="orthopedic">Orthopedic</option>
+              <option value="ent">ENT</option>
+              <option value="dentist">Dentist</option>
+            </select>
+          </div>
+
+          <div class="form-group form-actions">
+            <label class="sr-only" for="doctor-search-submit">Apply filters</label>
+            <button id="doctor-search-submit" type="submit">Search Doctors</button>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <section class="hospitals-section" aria-labelledby="results-title">
+      <div class="section-heading">
+        <p class="section-label">Available doctors</p>
+        <h2 id="results-title">Doctors available today</h2>
+      </div>
+
+      <div class="doctor-grid" id="doctor-results">
+        <article
+          class="doctor-card"
+          data-name="Dr Ravi Kumar"
+          data-specialty="Cardiologist"
+          data-hospital="Apollo Hospital"
+        >
+          <h3><a href="doctor-profile.html">Dr Ravi Kumar</a></h3>
+          <p class="doctor-meta"><strong>Specialty:</strong> Cardiologist</p>
+          <p class="doctor-meta"><strong>Hospital:</strong> Apollo Hospital</p>
+          <p class="doctor-meta"><strong>Rating:</strong> 4.8 / 5</p>
+          <p class="doctor-meta"><strong>Available today:</strong> Yes</p>
+          <a class="primary-button" href="doctor-profile.html">Book Appointment</a>
+          <button class="secondary-button quick-book-button" type="button" data-doctor="Dr Ravi Kumar" data-hospital="Apollo Hospital" data-time="10:00 AM">Quick Book</button>
+        </article>
+
+        <article
+          class="doctor-card"
+          data-name="Dr Meera Sharma"
+          data-specialty="Dermatologist"
+          data-hospital="Fortis Hospital"
+        >
+          <h3><a href="doctor-profile.html">Dr Meera Sharma</a></h3>
+          <p class="doctor-meta"><strong>Specialty:</strong> Dermatologist</p>
+          <p class="doctor-meta"><strong>Hospital:</strong> Fortis Hospital</p>
+          <p class="doctor-meta"><strong>Rating:</strong> 4.7 / 5</p>
+          <p class="doctor-meta"><strong>Available today:</strong> Yes</p>
+          <a class="primary-button" href="doctor-profile.html">Book Appointment</a>
+          <button class="secondary-button quick-book-button" type="button" data-doctor="Dr Meera Sharma" data-hospital="Fortis Hospital" data-time="11:30 AM">Quick Book</button>
+        </article>
+
+        <article
+          class="doctor-card"
+          data-name="Dr Arjun Patel"
+          data-specialty="Orthopedic"
+          data-hospital="Manipal Hospital"
+        >
+          <h3><a href="doctor-profile.html">Dr Arjun Patel</a></h3>
+          <p class="doctor-meta"><strong>Specialty:</strong> Orthopedic</p>
+          <p class="doctor-meta"><strong>Hospital:</strong> Manipal Hospital</p>
+          <p class="doctor-meta"><strong>Rating:</strong> 4.6 / 5</p>
+          <p class="doctor-meta"><strong>Available today:</strong> Yes</p>
+          <a class="primary-button" href="doctor-profile.html">Book Appointment</a>
+          <button class="secondary-button quick-book-button" type="button" data-doctor="Dr Arjun Patel" data-hospital="Manipal Hospital" data-time="2:00 PM">Quick Book</button>
+        </article>
+      </div>
+
+      <p class="help-text" id="doctor-empty-state" hidden>No doctors match your search. Please try another specialty or hospital.</p>
+    </section>
+  </main>
+
+    <footer class="site-footer">
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="tel:+918045678900">Contact</a>
+        <a href="help.html">Help</a>
+        <a href="privacy.html">Privacy</a>
+      </nav>
+    </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | CareConnect Bangalore</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="site-header">
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="doctor-search.html">Find Doctor</a>
+      <a href="hospitals.html">Hospitals</a>
+      <a href="dashboard.html" aria-current="page">Dashboard</a>
+      <a href="records.html">Records</a>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="hero card">
+      <div class="hero-content">
+        <p class="section-label">My dashboard</p>
+        <h1>Appointments and reminders</h1>
+        <p class="hero-subtitle">View your upcoming visits, previous appointments, and medicine reminders in one place.</p>
+      </div>
+    </section>
+
+    <section class="dashboard-sections">
+      <article class="dashboard-panel card" aria-labelledby="patient-summary-title">
+        <div class="section-heading">
+          <p class="section-label">Patient profile</p>
+          <h2 id="patient-summary-title">Logged in patient</h2>
+        </div>
+        <div class="search-panel" id="patient-summary-panel">
+          <p>Please log in from the homepage to load your dashboard.</p>
+        </div>
+      </article>
+
+      <article class="dashboard-panel card" aria-labelledby="upcoming-title">
+        <div class="section-heading">
+          <p class="section-label">Upcoming appointments</p>
+          <h2 id="upcoming-title">Your next visits</h2>
+        </div>
+
+        <div class="dashboard-cards" id="upcoming-appointments-list">
+          <article class="doctor-card">
+            <h3>Dr Ravi Kumar</h3>
+            <p class="doctor-meta"><strong>Hospital:</strong> Apollo Hospital</p>
+            <p class="doctor-meta"><strong>Date:</strong> 20 March 2026</p>
+            <p class="doctor-meta"><strong>Time:</strong> 10:00 AM</p>
+          </article>
+
+          <article class="doctor-card">
+            <h3>Dr Meera Sharma</h3>
+            <p class="doctor-meta"><strong>Hospital:</strong> Fortis Hospital</p>
+            <p class="doctor-meta"><strong>Date:</strong> 24 March 2026</p>
+            <p class="doctor-meta"><strong>Time:</strong> 11:30 AM</p>
+          </article>
+        </div>
+      </article>
+
+      <article class="dashboard-panel card" aria-labelledby="past-title">
+        <div class="section-heading">
+          <p class="section-label">Past appointments</p>
+          <h2 id="past-title">Previous visits</h2>
+        </div>
+
+        <div class="dashboard-cards">
+          <article class="doctor-card">
+            <h3>Dr Arjun Patel</h3>
+            <p class="doctor-meta"><strong>Hospital:</strong> Manipal Hospital</p>
+            <p class="doctor-meta"><strong>Date:</strong> 10 March 2026</p>
+            <p class="doctor-meta"><strong>Time:</strong> 2:00 PM</p>
+          </article>
+        </div>
+      </article>
+
+      <article class="dashboard-panel card" aria-labelledby="reminders-title">
+        <div class="section-heading">
+          <p class="section-label">Medicine reminders</p>
+          <h2 id="reminders-title">Today's reminders</h2>
+        </div>
+
+        <form class="search-panel" id="medicine-reminder-form">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="medicine-name">Medicine name</label>
+              <input id="medicine-name" type="text" placeholder="Example: BP Tablet">
+            </div>
+            <div class="form-group">
+              <label for="medicine-dosage">Dosage</label>
+              <input id="medicine-dosage" type="text" placeholder="Example: 1 tablet">
+            </div>
+            <div class="form-group">
+              <label for="medicine-time">Time of day</label>
+              <select id="medicine-time">
+                <option value="">Choose a time</option>
+                <option value="Morning">Morning</option>
+                <option value="Afternoon">Afternoon</option>
+                <option value="Night">Night</option>
+              </select>
+            </div>
+            <div class="form-group form-actions">
+              <label class="sr-only" for="medicine-submit">Add reminder</label>
+              <button id="medicine-submit" type="submit">Add Reminder</button>
+            </div>
+          </div>
+        </form>
+
+        <div class="dashboard-cards" id="medicine-reminders-list">
+          <article class="doctor-card">
+            <h3>Blood pressure tablet</h3>
+            <p class="doctor-meta"><strong>Dosage:</strong> 1 tablet</p>
+            <p class="doctor-meta"><strong>Time:</strong> Morning</p>
+          </article>
+        </div>
+      </article>
+
+      <article class="dashboard-panel card" aria-labelledby="family-title">
+        <div class="section-heading">
+          <p class="section-label">Caregiver mode</p>
+          <h2 id="family-title">Manage Family Members</h2>
+        </div>
+
+        <form class="search-panel" id="family-member-form">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="family-role">Family member</label>
+              <select id="family-role">
+                <option value="">Choose member</option>
+                <option value="Mother">Mother</option>
+                <option value="Father">Father</option>
+                <option value="Grandparent">Grandparent</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="family-name">Name</label>
+              <input id="family-name" type="text" placeholder="Enter name">
+            </div>
+            <div class="form-group">
+              <label for="family-age">Age</label>
+              <input id="family-age" type="number" min="1" max="120" placeholder="Enter age">
+            </div>
+            <div class="form-group full-width">
+              <label for="family-notes">Medical notes</label>
+              <textarea id="family-notes" placeholder="Example: Arthritis, diabetes, or current medicines"></textarea>
+            </div>
+            <div class="form-group full-width">
+              <button type="submit">Save Family Member</button>
+            </div>
+          </div>
+        </form>
+
+        <div class="dashboard-cards" id="family-members-list"></div>
+      </article>
+    </section>
+  </main>
+
+    <footer class="site-footer">
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="tel:+918045678900">Contact</a>
+        <a href="help.html">Help</a>
+        <a href="privacy.html">Privacy</a>
+      </nav>
+    </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doctor Profile | CareConnect Bangalore</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="site-header">
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="doctor-search.html" aria-current="page">Find Doctor</a>
+      <a href="hospitals.html">Hospitals</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="records.html">Records</a>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="hero card">
+      <div class="hero-content">
+        <p class="section-label">Doctor profile</p>
+        <h1>Doctor details and appointment times</h1>
+        <p class="hero-subtitle">Review the doctor information below and choose a time slot that is comfortable for you.</p>
+      </div>
+    </section>
+
+    <section class="profile-layout" aria-labelledby="profile-title">
+      <article class="profile-card card">
+        <div class="doctor-profile-header">
+          <div class="doctor-photo" aria-hidden="true">
+            <span>DR</span>
+          </div>
+
+          <div class="doctor-profile-info">
+            <p class="section-label">Available today</p>
+            <h2 id="profile-title">Dr Ravi Kumar</h2>
+            <p class="doctor-meta"><strong>Specialty:</strong> <span id="profile-specialty">Cardiologist</span></p>
+            <p class="doctor-meta"><strong>Hospital:</strong> <span id="profile-hospital">Apollo Hospital</span></p>
+            <p class="doctor-meta"><strong>Years of experience:</strong> <span id="profile-experience">18 years</span></p>
+            <p class="doctor-meta"><strong>Ratings:</strong> <span id="profile-rating">4.8 / 5</span></p>
+          </div>
+        </div>
+      </article>
+
+      <article class="profile-card card" aria-labelledby="slots-title">
+        <div class="section-heading">
+          <p class="section-label">Available time slots</p>
+          <h2 id="slots-title">Choose a time for your visit</h2>
+        </div>
+
+        <div class="time-slots">
+          <a class="time-slot-button" href="booking.html?doctor=Dr%20Ravi%20Kumar&hospital=Apollo%20Hospital&time=10%3A00%20AM">10:00 AM</a>
+          <a class="time-slot-button" href="booking.html?doctor=Dr%20Ravi%20Kumar&hospital=Apollo%20Hospital&time=11%3A30%20AM">11:30 AM</a>
+          <a class="time-slot-button" href="booking.html?doctor=Dr%20Ravi%20Kumar&hospital=Apollo%20Hospital&time=2%3A00%20PM">2:00 PM</a>
+          <a class="time-slot-button" href="booking.html?doctor=Dr%20Ravi%20Kumar&hospital=Apollo%20Hospital&time=4%3A30%20PM">4:30 PM</a>
+        </div>
+
+        <div class="action-buttons">
+          <a class="primary-button profile-book-button" id="profile-book-link" href="booking.html">Book Appointment</a>
+          <button class="secondary-button quick-book-button" id="profile-quick-book-button" type="button" data-doctor="Dr Ravi Kumar" data-hospital="Apollo Hospital" data-time="10:00 AM">Quick Book</button>
+        </div>
+      </article>
+    </section>
+  </main>
+
+    <footer class="site-footer">
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="tel:+918045678900">Contact</a>
+        <a href="help.html">Help</a>
+        <a href="privacy.html">Privacy</a>
+      </nav>
+    </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Appointment | CareConnect Bangalore</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="site-header">
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="doctor-search.html">Find Doctor</a>
+      <a href="hospitals.html">Hospitals</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="records.html">Records</a>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="hero card">
+      <div class="hero-content">
+        <p class="section-label">Appointment booking</p>
+        <h1>Book your appointment</h1>
+        <p class="hero-subtitle">Maximum 3 steps: choose doctor, choose time, confirm.</p>
+      </div>
+    </section>
+
+    <section class="search-section card" aria-labelledby="booking-form-title">
+      <div class="section-heading">
+        <p class="section-label">Booking form</p>
+        <h2 id="booking-form-title">Step 2 and Step 3: Select time and confirm</h2>
+      </div>
+
+      <div class="search-panel booking-summary" id="booking-summary">
+        <p><strong>Doctor:</strong> <span id="selected-doctor">Choose from doctor list</span></p>
+        <p><strong>Hospital:</strong> <span id="selected-hospital">Choose from doctor list</span></p>
+        <p class="help-text">Saved patient details will be reused automatically for future appointments.</p>
+      </div>
+
+      <form class="search-panel" id="booking-form">
+        <input id="selected-doctor-id" type="hidden">
+        <input id="selected-hospital-id" type="hidden">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="patient-name">Patient Name</label>
+            <input id="patient-name" name="patient-name" type="text" placeholder="Enter patient name" required>
+          </div>
+
+          <div class="form-group">
+            <label for="patient-age">Age</label>
+            <input id="patient-age" name="patient-age" type="number" min="1" max="120" placeholder="Enter age" required>
+          </div>
+
+          <div class="form-group">
+            <label for="phone-number">Phone Number</label>
+            <input id="phone-number" name="phone-number" type="tel" placeholder="Enter phone number" required>
+          </div>
+
+          <div class="form-group">
+            <label for="patient-email">Email (optional)</label>
+            <input id="patient-email" name="patient-email" type="email" placeholder="Enter email if available">
+          </div>
+
+          <div class="form-group full-width">
+            <label for="family-member-select">Book for family member (optional)</label>
+            <select id="family-member-select" name="family-member-select">
+              <option value="">Use main patient profile</option>
+            </select>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="medical-notes">Medical notes (optional)</label>
+            <textarea id="medical-notes" name="medical-notes" placeholder="Example: Diabetes, blood pressure, or current symptoms"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="appointment-date">Select Date</label>
+            <input id="appointment-date" name="appointment-date" type="date" required>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="time-slot">Select Time Slot</label>
+            <select id="time-slot" name="time-slot" required>
+              <option value="">Choose a time slot</option>
+              <option value="10:00 AM">10:00 AM</option>
+              <option value="11:30 AM">11:30 AM</option>
+              <option value="2:00 PM">2:00 PM</option>
+              <option value="4:30 PM">4:30 PM</option>
+            </select>
+          </div>
+
+          <div class="form-group full-width">
+            <button type="submit">Confirm Appointment</button>
+          </div>
+
+          <div class="form-group full-width">
+            <p class="help-text" id="profile-status-text">First booking: fill patient details once. Future bookings will be auto-filled.</p>
+          </div>
+        </div>
+      </form>
+    </section>
+  </main>
+
+    <footer class="site-footer">
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="tel:+918045678900">Contact</a>
+        <a href="help.html">Help</a>
+        <a href="privacy.html">Privacy</a>
+      </nav>
+    </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

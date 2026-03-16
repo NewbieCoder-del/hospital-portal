@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CareConnect Bangalore</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <header class="site-header">
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="index.html" aria-current="page">Home</a>
+        <a href="doctor-search.html">Find Doctor</a>
+        <a href="hospitals.html">Hospitals</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="records.html">Records</a>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <section class="hero card">
+        <div class="hero-content">
+          <p class="section-label">Senior-friendly healthcare</p>
+          <h1>Find Doctors and Book Appointments Easily</h1>
+          <p class="hero-subtitle">
+            Senior-friendly healthcare access in Bangalore
+          </p>
+        </div>
+      </section>
+
+      <section class="search-section card" aria-labelledby="auth-title">
+        <div class="section-heading">
+          <p class="section-label">Patient account</p>
+          <h2 id="auth-title">Register or log in once</h2>
+        </div>
+
+        <div class="action-buttons">
+          <a class="primary-button" href="signup.html">Open Signup Page</a>
+          <a class="secondary-button" href="login.html">Open Login Page</a>
+        </div>
+
+        <div class="form-grid">
+          <form class="search-panel" id="register-form">
+            <h3>Create patient account</h3>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="register-name">Name</label>
+                <input
+                  id="register-name"
+                  type="text"
+                  placeholder="Enter your name"
+                  required />
+              </div>
+              <div class="form-group">
+                <label for="register-age">Age</label>
+                <input
+                  id="register-age"
+                  type="number"
+                  min="1"
+                  max="120"
+                  placeholder="Enter age"
+                  required />
+              </div>
+              <div class="form-group">
+                <label for="register-phone">Phone Number</label>
+                <input
+                  id="register-phone"
+                  type="tel"
+                  placeholder="Enter phone number"
+                  required />
+              </div>
+              <div class="form-group">
+                <label for="register-email">Email</label>
+                <input
+                  id="register-email"
+                  type="email"
+                  placeholder="Enter email" />
+              </div>
+              <div class="form-group full-width">
+                <label for="register-password">Password</label>
+                <input
+                  id="register-password"
+                  type="password"
+                  placeholder="Create password"
+                  required />
+              </div>
+              <div class="form-group full-width">
+                <label for="register-notes">Medical notes</label>
+                <textarea
+                  id="register-notes"
+                  placeholder="Example: Diabetes, BP, allergies"></textarea>
+              </div>
+              <div class="form-group full-width">
+                <button type="submit">Register Patient</button>
+              </div>
+            </div>
+          </form>
+
+          <form class="search-panel" id="login-form">
+            <h3>Log in</h3>
+            <div class="form-grid">
+              <div class="form-group full-width">
+                <label for="login-phone">Phone Number</label>
+                <input
+                  id="login-phone"
+                  type="tel"
+                  placeholder="Enter phone number"
+                  required />
+              </div>
+              <div class="form-group full-width">
+                <label for="login-password">Password</label>
+                <input
+                  id="login-password"
+                  type="password"
+                  placeholder="Enter password"
+                  required />
+              </div>
+              <div class="form-group full-width">
+                <button type="submit">Log In</button>
+              </div>
+              <div class="form-group full-width">
+                <p class="help-text" id="auth-status">Not logged in.</p>
+              </div>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section class="search-section card" aria-labelledby="search-title">
+        <div class="section-heading">
+          <p class="section-label">Search section</p>
+          <h2 id="search-title">Search doctors or hospitals</h2>
+        </div>
+
+        <form class="search-panel" id="quick-search-form">
+          <p class="step-note">
+            Step 1 of 3: Search by symptom, specialty, doctor, or hospital.
+          </p>
+          <label for="search-input"
+            >Search bar to find doctors or hospitals</label
+          >
+          <div class="search-row">
+            <input
+              id="search-input"
+              name="search"
+              type="search"
+              placeholder="Type doctor name, specialty, or hospital"
+              aria-describedby="search-help" />
+            <button
+              class="voice-search-button"
+              id="voice-search-button"
+              type="button"
+              aria-label="Start voice search">
+              Mic
+            </button>
+            <button type="submit">Search</button>
+          </div>
+          <p id="search-help" class="help-text">
+            Example: Cardiology, Apollo Hospital, or General Physician.
+          </p>
+          <div class="suggestion-box" id="symptom-suggestions" hidden></div>
+          <div class="dashboard-cards" id="symptom-doctor-results"></div>
+        </form>
+      </section>
+
+      <section class="specialties-section" aria-labelledby="specialties-title">
+        <div class="section-heading">
+          <p class="section-label">Quick specialties</p>
+          <h2 id="specialties-title">Choose a specialty</h2>
+        </div>
+
+        <div class="specialties-grid">
+          <article class="specialty-card card" data-specialty="Cardiology">
+            <h3>Cardiology</h3>
+            <p>Heart specialists and cardiac care.</p>
+          </article>
+          <article class="specialty-card card" data-specialty="Orthopedic">
+            <h3>Orthopedic</h3>
+            <p>Bone, joint, and mobility care.</p>
+          </article>
+          <article class="specialty-card card" data-specialty="Dermatology">
+            <h3>Dermatology</h3>
+            <p>Skin, hair, and allergy support.</p>
+          </article>
+          <article
+            class="specialty-card card"
+            data-specialty="General Physician">
+            <h3>General Physician</h3>
+            <p>Basic health checkups and common illnesses.</p>
+          </article>
+          <article class="specialty-card card" data-specialty="ENT">
+            <h3>ENT</h3>
+            <p>Ear, nose, and throat care.</p>
+          </article>
+          <article class="specialty-card card" data-specialty="Dentist">
+            <h3>Dentist</h3>
+            <p>Dental checkups and tooth care.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="actions-section card" aria-label="Important actions">
+        <div class="action-buttons">
+          <a class="secondary-button emergency-button" href="booking.html"
+            >Emergency Booking</a
+          >
+          <button class="secondary-button ai-button" type="button">
+            AI Assistant
+          </button>
+        </div>
+      </section>
+
+      <section
+        class="search-section card"
+        aria-labelledby="returning-users-title">
+        <div class="section-heading">
+          <p class="section-label">Fast booking</p>
+          <h2 id="returning-users-title">
+            Returning users can book in one click
+          </h2>
+        </div>
+        <div class="search-panel">
+          <p class="help-text">
+            Save your patient profile once. After that, choose a doctor and use
+            Quick Book to confirm the next available time instantly.
+          </p>
+        </div>
+      </section>
+
+      <section class="hospitals-section" aria-labelledby="hospitals-title">
+        <div class="section-heading">
+          <p class="section-label">Popular hospitals</p>
+          <h2 id="hospitals-title">Hospitals many users search for</h2>
+        </div>
+
+        <div class="hospitals-grid">
+          <article class="hospital-card card">
+            <h3>Apollo Hospital</h3>
+            <p class="hospital-meta">
+              Multi-specialty care with experienced doctors in Bangalore.
+            </p>
+            <a
+              class="primary-button"
+              href="doctor-search.html?query=Apollo%20Hospital"
+              >View Doctors</a
+            >
+          </article>
+          <article class="hospital-card card">
+            <h3>Manipal Hospital</h3>
+            <p class="hospital-meta">
+              Known for senior care, diagnostics, and specialist appointments.
+            </p>
+            <a
+              class="primary-button"
+              href="doctor-search.html?query=Manipal%20Hospital"
+              >View Doctors</a
+            >
+          </article>
+          <article class="hospital-card card">
+            <h3>Fortis Hospital</h3>
+            <p class="hospital-meta">
+              Trusted hospital network with outpatient and emergency services.
+            </p>
+            <a
+              class="primary-button"
+              href="doctor-search.html?query=Fortis%20Hospital"
+              >View Doctors</a
+            >
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="tel:+918045678900">Contact</a>
+        <a href="help.html">Help</a>
+        <a href="privacy.html">Privacy</a>
+      </nav>
+    </footer>
+
+    <script src="js/script.js"></script>
+  </body>
+</html>
