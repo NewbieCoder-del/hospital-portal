@@ -1,4 +1,18 @@
-const BACKEND_ORIGIN = "http://localhost:5000";
+const detectBackendOrigin = () => {
+  const configuredOrigin =
+    window.CARECONNECT_API_ORIGIN || localStorage.getItem("careconnectApiOrigin") || "";
+  if (configuredOrigin) {
+    return configuredOrigin.replace(/\/+$/, "");
+  }
+
+  if (window.location.protocol === "http:" || window.location.protocol === "https:") {
+    return `${window.location.protocol}//${window.location.hostname}:5000`;
+  }
+
+  return "http://localhost:5000";
+};
+
+const BACKEND_ORIGIN = detectBackendOrigin();
 const API_BASE = `${BACKEND_ORIGIN}/api`;
 
 const toBackendUrl = (value = "") => {
@@ -75,10 +89,22 @@ const fetchJSON = async (url, options = {}) => {
     ...(options.headers || {})
   };
 
-  const response = await fetch(url, { ...options, headers });
-  const data = await response.json().catch(() => ({}));
+  let response;
+  try {
+    response = await fetch(url, { ...options, headers });
+  } catch (error) {
+    const message =
+      "Unable to reach the server. Please verify backend is running and accessible.";
+    throw new Error(message);
+  }
+
+  const contentType = response.headers.get("content-type") || "";
+  const isJson = contentType.includes("application/json");
+  const data = isJson ? await response.json().catch(() => ({})) : {};
   if (!response.ok) {
-    throw new Error(data.message || "Something went wrong.");
+    const requestId = response.headers.get("x-request-id");
+    const details = requestId ? ` Request ID: ${requestId}.` : "";
+    throw new Error((data.message || "Something went wrong.") + details);
   }
 
   return data;

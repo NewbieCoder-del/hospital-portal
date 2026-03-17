@@ -23,8 +23,10 @@ const patientSchema = new mongoose.Schema(
   {
     name: { type: String, required: true, trim: true },
     age: { type: Number, default: null },
-    phone: { type: String, required: true, unique: true, trim: true },
-    email: { type: String, trim: true, lowercase: true, unique: true, sparse: true },
+    phone: { type: String, required: true, trim: true },
+    phoneNormalized: { type: String, required: true, unique: true, trim: true },
+    email: { type: String, trim: true, lowercase: true },
+    emailNormalized: { type: String, unique: true, sparse: true, trim: true },
     passwordHash: { type: String, required: true },
     medicalNotes: { type: String, default: "" },
     medicalHistory: { type: String, default: "" },

@@ -15,12 +15,12 @@ exports.createAppointment = async (req, res) => {
     } = req.body;
 
     if (!doctorId || !appointmentDate || !timeSlot) {
-      return res.status(400).json({ message: "Doctor, date, and time slot are required." });
+      return res.status(400).json({ code: "VALIDATION_ERROR", message: "Doctor, date, and time slot are required." });
     }
 
     const doctor = await Doctor.findById(doctorId).populate("hospital");
     if (!doctor) {
-      return res.status(404).json({ message: "Doctor not found." });
+      return res.status(404).json({ code: "DOCTOR_NOT_FOUND", message: "Doctor not found." });
     }
 
     const appointment = await Appointment.create({
@@ -42,15 +42,19 @@ exports.createAppointment = async (req, res) => {
 
     res.status(201).json(populatedAppointment);
   } catch (error) {
-    res.status(500).json({ message: "Unable to create appointment." });
+    res.status(500).json({ code: "APPOINTMENT_CREATE_FAILED", message: "Unable to create appointment." });
   }
 };
 
 exports.listAppointments = async (req, res) => {
-  const appointments = await Appointment.find({ patient: req.patient._id })
-    .populate("doctor")
-    .populate("hospital")
-    .sort({ createdAt: -1 });
+  try {
+    const appointments = await Appointment.find({ patient: req.patient._id })
+      .populate("doctor")
+      .populate("hospital")
+      .sort({ createdAt: -1 });
 
-  res.json(appointments);
+    res.json(appointments);
+  } catch (error) {
+    res.status(500).json({ code: "APPOINTMENT_LIST_FAILED", message: "Unable to fetch appointments." });
+  }
 };

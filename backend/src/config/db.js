@@ -7,7 +7,10 @@ const connectDatabase = async () => {
     throw new Error("MONGODB_URI is not configured.");
   }
 
-  await mongoose.connect(mongoUri);
+  await mongoose.connect(mongoUri, {
+    serverSelectionTimeoutMS: 10000,
+    maxPoolSize: 20
+  });
 };
 
 module.exports = connectDatabase;

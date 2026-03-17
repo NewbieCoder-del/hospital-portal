@@ -1,6 +1,11 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Patient = require("../models/Patient");
+const {
+  validateSignupPayload,
+  validateLoginPayload,
+  validateProfilePayload
+} = require("../utils/authValidation");
 
 const signToken = (patient) =>
   jwt.sign({ patientId: patient._id }, process.env.JWT_SECRET, { expiresIn: "7d" });
@@ -20,27 +25,31 @@ const serializePatient = (patient) => ({
 
 exports.register = async (req, res) => {
   try {
-    const { name, age, phone, email, password, medicalNotes } = req.body;
-
-    if (!name || !phone || !password) {
-      return res.status(400).json({ message: "Name, phone, and password are required." });
+    const { errors, value } = validateSignupPayload(req.body);
+    if (errors.length) {
+      return res.status(400).json({ code: "VALIDATION_ERROR", message: errors.join(" ") });
     }
 
     const existingPatient = await Patient.findOne({
-      $or: [{ phone }, ...(email ? [{ email }] : [])]
+      $or: [
+        { phoneNormalized: value.phoneNormalized },
+        ...(value.emailNormalized ? [{ emailNormalized: value.emailNormalized }] : [])
+      ]
     });
     if (existingPatient) {
-      return res.status(409).json({ message: "Patient already exists. Please log in." });
+      return res.status(409).json({ code: "PATIENT_EXISTS", message: "Patient already exists. Please log in." });
     }
 
-    const passwordHash = await bcrypt.hash(password, 10);
+    const passwordHash = await bcrypt.hash(value.password, 12);
     const patient = await Patient.create({
-      name,
-      age,
-      phone,
-      email,
+      name: value.name,
+      age: value.age,
+      phone: value.phone,
+      phoneNormalized: value.phoneNormalized,
+      email: value.email,
+      emailNormalized: value.emailNormalized || undefined,
       passwordHash,
-      medicalNotes
+      medicalNotes: value.medicalNotes
     });
 
     res.status(201).json({
@@ -48,22 +57,29 @@ exports.register = async (req, res) => {
       patient: serializePatient(patient)
     });
   } catch (error) {
-    res.status(500).json({ message: "Unable to register patient." });
+    if (error?.code === 11000) {
+      return res.status(409).json({ code: "PATIENT_EXISTS", message: "Patient already exists. Please log in." });
+    }
+    return res.status(500).json({ code: "REGISTER_FAILED", message: "Unable to register patient." });
   }
 };
 
 exports.login = async (req, res) => {
   try {
-    const { phone, password } = req.body;
-    const patient = await Patient.findOne({ phone });
-
-    if (!patient) {
-      return res.status(401).json({ message: "Invalid phone or password." });
+    const { errors, value } = validateLoginPayload(req.body);
+    if (errors.length) {
+      return res.status(400).json({ code: "VALIDATION_ERROR", message: errors.join(" ") });
     }
 
-    const isPasswordValid = await bcrypt.compare(password, patient.passwordHash);
+    const patient = await Patient.findOne({ phoneNormalized: value.phoneNormalized });
+
+    if (!patient) {
+      return res.status(401).json({ code: "INVALID_CREDENTIALS", message: "Invalid phone or password." });
+    }
+
+    const isPasswordValid = await bcrypt.compare(value.password, patient.passwordHash);
     if (!isPasswordValid) {
-      return res.status(401).json({ message: "Invalid phone or password." });
+      return res.status(401).json({ code: "INVALID_CREDENTIALS", message: "Invalid phone or password." });
     }
 
     res.json({
@@ -71,7 +87,7 @@ exports.login = async (req, res) => {
       patient: serializePatient(patient)
     });
   } catch (error) {
-    res.status(500).json({ message: "Unable to log in." });
+    return res.status(500).json({ code: "LOGIN_FAILED", message: "Unable to log in." });
   }
 };
 
@@ -81,29 +97,39 @@ exports.getProfile = async (req, res) => {
 
 exports.updateProfile = async (req, res) => {
   try {
-    const {
-      name,
-      age,
-      phone,
-      email,
-      medicalNotes,
-      medicalHistory,
-      insuranceInformation
-    } = req.body;
+    const { errors, value } = validateProfilePayload(req.body, req.patient);
+    if (errors.length) {
+      return res.status(400).json({ code: "VALIDATION_ERROR", message: errors.join(" ") });
+    }
 
-    req.patient.name = name ?? req.patient.name;
-    req.patient.age = age === "" ? null : age ?? req.patient.age;
-    req.patient.phone = phone ?? req.patient.phone;
-    req.patient.email = email ?? req.patient.email;
-    req.patient.medicalNotes = medicalNotes ?? req.patient.medicalNotes;
-    req.patient.medicalHistory = medicalHistory ?? req.patient.medicalHistory;
-    req.patient.insuranceInformation =
-      insuranceInformation ?? req.patient.insuranceInformation;
+    const conflict = await Patient.findOne({
+      _id: { $ne: req.patient._id },
+      $or: [
+        { phoneNormalized: value.phoneNormalized },
+        ...(value.emailNormalized ? [{ emailNormalized: value.emailNormalized }] : [])
+      ]
+    });
+    if (conflict) {
+      return res.status(409).json({ code: "PROFILE_CONFLICT", message: "Phone or email is already in use." });
+    }
+
+    req.patient.name = value.name;
+    req.patient.age = value.age;
+    req.patient.phone = value.phone;
+    req.patient.phoneNormalized = value.phoneNormalized;
+    req.patient.email = value.email;
+    req.patient.emailNormalized = value.emailNormalized || undefined;
+    req.patient.medicalNotes = value.medicalNotes;
+    req.patient.medicalHistory = value.medicalHistory;
+    req.patient.insuranceInformation = value.insuranceInformation;
 
     await req.patient.save();
 
     res.json({ patient: serializePatient(req.patient) });
   } catch (error) {
-    res.status(500).json({ message: "Unable to update profile." });
+    if (error?.code === 11000) {
+      return res.status(409).json({ code: "PROFILE_CONFLICT", message: "Phone or email is already in use." });
+    }
+    return res.status(500).json({ code: "PROFILE_UPDATE_FAILED", message: "Unable to update profile." });
   }
 };
