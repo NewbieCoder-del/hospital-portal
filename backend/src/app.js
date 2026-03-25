@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
-const mongoose = require("mongoose");
+const { getFirebaseStatus } = require("./config/firebase");
 
 const authRoutes = require("./routes/authRoutes");
 const doctorRoutes = require("./routes/doctorRoutes");
@@ -72,17 +72,19 @@ app.get("/appointments", requireAuth, appointmentController.listAppointments);
 app.post("/upload-record", requireAuth, upload.single("recordFile"), recordController.uploadRecord);
 
 app.get("/api/health", (req, res) => {
-  const dbStates = ["disconnected", "connected", "connecting", "disconnecting"];
   res.json({
     status: "ok",
     environment: process.env.NODE_ENV || "development",
-    database: dbStates[mongoose.connection.readyState] || "unknown",
+    database: getFirebaseStatus(),
     timestamp: new Date().toISOString()
   });
 });
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(frontendDir, "index.html"));
+app.get("*", (req, res, next) => {
+  if (req.path.startsWith("/api/")) {
+    return next();
+  }
+  return res.sendFile(path.join(frontendDir, "index.html"));
 });
 
 app.use(notFoundHandler);

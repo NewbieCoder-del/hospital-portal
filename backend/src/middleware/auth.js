@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const Patient = require("../models/Patient");
+const { getDb } = require("../config/firebase");
 
 const requireAuth = async (req, res, next) => {
   try {
@@ -15,13 +15,17 @@ const requireAuth = async (req, res, next) => {
     }
 
     const payload = jwt.verify(token, process.env.JWT_SECRET);
-    const patient = await Patient.findById(payload.patientId);
+    const db = getDb();
+    const patientSnapshot = await db.collection("patients").doc(payload.patientId).get();
 
-    if (!patient) {
+    if (!patientSnapshot.exists) {
       return res.status(401).json({ code: "INVALID_SESSION", message: "Invalid session." });
     }
 
-    req.patient = patient;
+    req.patient = {
+      _id: patientSnapshot.id,
+      ...patientSnapshot.data()
+    };
     next();
   } catch (error) {
     return res.status(401).json({ code: "AUTH_FAILED", message: "Authentication failed." });

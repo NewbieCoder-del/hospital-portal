@@ -1,17 +1,16 @@
 const fs = require("fs");
 const path = require("path");
 const dotenv = require("dotenv");
-const mongoose = require("mongoose");
 
 dotenv.config();
 
 const app = require("./app");
-const connectDatabase = require("./config/db");
 const seedDatabase = require("./utils/seedData");
+const { getFirebaseStatus, getFirebaseInitializationError } = require("./config/firebase");
 
 const port = process.env.PORT || 5000;
 const uploadsDir = path.join(__dirname, "..", "uploads");
-const requiredEnvKeys = ["MONGODB_URI", "JWT_SECRET"];
+const requiredEnvKeys = ["JWT_SECRET"];
 
 const validateEnv = () => {
   const missing = requiredEnvKeys.filter((key) => !process.env[key]);
@@ -30,19 +29,22 @@ if (!fs.existsSync(uploadsDir)) {
 
 const startServer = async () => {
   validateEnv();
-  await connectDatabase();
-  await seedDatabase();
 
-  mongoose.connection.on("error", (error) => {
-    console.error("MongoDB connection error", error);
-  });
+  try {
+    await seedDatabase();
+  } catch (error) {
+    console.error(`Firestore seed skipped: ${error.message}`);
+  }
 
-  mongoose.connection.on("disconnected", () => {
-    console.warn("MongoDB disconnected");
-  });
+  const firebaseError = getFirebaseInitializationError();
+  if (firebaseError) {
+    console.error(`Firebase status: unavailable (${firebaseError.message})`);
+  }
 
   app.listen(port, () => {
-    console.log(`CareConnect backend running on http://localhost:${port}`);
+    console.log(
+      `CareConnect backend running on http://localhost:${port} (database: ${getFirebaseStatus()})`
+    );
   });
 };
 

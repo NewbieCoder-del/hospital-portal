@@ -49,16 +49,27 @@ const validateSignupPayload = (payload = {}) => {
 
 const validateLoginPayload = (payload = {}) => {
   const errors = [];
-  const phoneNormalized = normalizePhone(payload.phone);
+  const identifierRaw =
+    typeof payload.phone === "string" && payload.phone.trim()
+      ? payload.phone.trim()
+      : typeof payload.email === "string" && payload.email.trim()
+        ? payload.email.trim()
+        : "";
+  const phoneNormalized = normalizePhone(identifierRaw);
+  const emailNormalized = normalizeEmail(identifierRaw);
   const password = payload.password;
 
-  if (!PHONE_REGEX.test(phoneNormalized)) errors.push("Phone must contain 10 to 15 digits.");
+  if (!PHONE_REGEX.test(phoneNormalized) && !EMAIL_REGEX.test(emailNormalized)) {
+    errors.push("Provide a valid phone number or email.");
+  }
   if (!password) errors.push("Password is required.");
 
   return {
     errors,
     value: {
+      identifier: identifierRaw,
       phoneNormalized,
+      emailNormalized,
       password
     }
   };
